@@ -11,7 +11,7 @@ interface State {
 
 class TaskList extends React.Component<Props, State> {
     render() {
-            return this.props.tasks.map((task, idx) => <Task key={idx} title={task.title} />);
+            return this.props.tasks.map((task, idx) => <Task key={idx} title={task.title} dueDate={task.dueDate} description={task.description} />);
     }
 }
 
