@@ -1,30 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { TaskItem } from "./types";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
-
 
 interface TaskAppProp {}
 interface TaskAppState {
   tasks: TaskItem[];
 }
-class TaskApp extends React.Component<TaskAppProp, TaskAppState> {
-  constructor(props: TaskAppProp) {
-    super(props);
-    this.state = {
-      tasks: [],
-    };
-  }
-  addTask = (task: TaskItem) => {
-    this.setState((state) => {
-        return {
-        tasks: [...state.tasks, task],
-        };
-    });
+
+const TaskApp = (props: TaskAppProp) => {
+  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
+    tasks: [],
+  });
+
+  const addTask = (task: TaskItem) => {
+    setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
-  render() {
-    return (
-      <div className="container py-10 max-w-4xl mx-auto">
+
+  useEffect(() => {
+  const id = setTimeout(() => {
+    console.log(`Saved ${taskAppState.tasks.length} items to backend...`);
+  }, 5000);
+
+  return () => {
+    console.log("clear or cancel any existing network call");
+    clearTimeout(id);
+  };
+  }, [taskAppState.tasks]);
+
+  return (
+    <div className="container py-10 max-w-4xl mx-auto">
         <h1 className="text-3xl mb-2 font-bold text-slate-700">
           Smarter Tasks
         </h1>
@@ -37,13 +43,12 @@ class TaskApp extends React.Component<TaskAppProp, TaskAppState> {
             <h1 className="text-slate-500 text-xl font-bold text-center mb-2">
               Pending
             </h1>
-            <TaskForm addTask={this.addTask} />
-            <TaskList tasks={this.state.tasks} />
+            <TaskForm addTask={addTask} />
+            <TaskList tasks={taskAppState.tasks} />
           </div>
         </div>
       </div>
-    );
-  }
-}
+  );
+};
 
 export default TaskApp;

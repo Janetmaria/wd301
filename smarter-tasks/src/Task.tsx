@@ -6,18 +6,16 @@ interface TaskProp {
     dueDate: string;
     description: string;
 }
-
-class Task extends React.Component<TaskProp> {
-    render() {
-    return (
+const Task = (props: TaskItem) => {
+  return (
       <div className="TaskItem shadow-md border border-slate-100">
-        <h2 className="text-base font-bold my-1">{this.props.title} className="text-sm text-slate-500" ({this.props.dueDate})</h2>
+        <h2 className="text-base font-bold my-1">{props.title}</h2> 
+        <p className="text-sm text-slate-500"> ({props.dueDate})</p>
         <p className="text-sm text-slate-500">
-          Description: {this.props.description}
+          Description: {props.description}
         </p>
       </div>
     );
-  }
 }
 
 export default Task;
