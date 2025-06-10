@@ -19,9 +19,12 @@ const TaskApp = () => {
   };
 
   const deleteTask = (idToDel: string) => {
-    setTaskAppState({
-      tasks: taskAppState.tasks.filter((task) => task.id !== idToDel)
-    })
+    const updatedTasks = [...taskAppState.tasks];
+    const index = updatedTasks.findIndex((task) => task.id === idToDel);
+    if(index !== -1) {
+      updatedTasks.splice(index, 1);
+      setTaskAppState({ tasks: updatedTasks });
+    }
   };
 
   return (
