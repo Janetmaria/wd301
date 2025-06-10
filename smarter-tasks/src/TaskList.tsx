@@ -1,4 +1,3 @@
-import React from "react";
 import Task from "./Task";
 import type { TaskItem } from "./types";
 
@@ -7,7 +6,7 @@ interface Props {
     handleDeleteTask : (id: string) => void;
 }
 
-interface State {}
+//interface State {}
 
 const TaskList = (props: Props) => {
     const list = <ul>{props.tasks.map((task) => (

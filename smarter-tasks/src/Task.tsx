@@ -1,12 +1,12 @@
-import React from "react";
+//import React from "react";
 import "./TaskCard.css";
 import type { TaskItem } from "./types";
 
-interface TaskProp {
-    title: string;
-    dueDate: string;
-    description: string;
-}
+// interface TaskProp {
+//     title: string;
+//     dueDate: string;
+//     description: string;
+// }
 const Task = (props: TaskItem) => {
   return (
       <div className="TaskItem shadow-md border border-slate-100">
