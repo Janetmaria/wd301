@@ -10,8 +10,8 @@ interface Props {
 interface State {}
 
 const TaskList = (props: Props) => {
-    const list = <ul>{props.tasks.map((task, idx) => (
-    <li key={task.id}>
+    const list = <ul>{props.tasks.map((task) => (
+    <li className="TaskItem" key={task.id}>
     <Task {...task}
     />
     <button className="deleteTaskButton" onClick={() => props.handleDeleteTask(task.id)}>Delete</button>
