@@ -4,20 +4,21 @@ import type { TaskItem } from "./types";
 
 interface Props {
     tasks: TaskItem[];
-    deleteItemTask : (id: number) => void;
+    handleDeleteTask : (id: string) => void;
 }
 
 interface State {}
 
 const TaskList = (props: Props) => {
-    const list = props.tasks.map((task, idx) => (
-    <Task
-    key={idx}
-    item={task}
-    deleteTask={() => props.deleteItemTask(idx)}
+    const list = <ul>{props.tasks.map((task, idx) => (
+    <li key={task.id}>
+    <Task {...task}
     />
-    ));
-    return <ul>{list}</ul>
+    <button className="deleteTaskButton" onClick={() => props.handleDeleteTask(task.id)}>Delete</button>
+    </li>
+    ))}
+    </ul>
+    return <>{list}</>
 }
 
 export default TaskList;

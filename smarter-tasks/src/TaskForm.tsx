@@ -14,7 +14,7 @@ interface TaskFormState {
 
 const TaskForm = (props: TaskFormProps) => {
   const[formState, setFormState] = React.useState<TaskFormState>({
-    id: Number(new Date()).toString(),
+    id: "",
     title: "",
     description: "",
     dueDate: "",
@@ -40,7 +40,7 @@ const TaskForm = (props: TaskFormProps) => {
       return;
     }
     props.addTask(formState);
-    setFormState({ id: (Number(new Date())+1).toString(), title: "", dueDate: "", description: "" });
+    setFormState({ id: crypto.randomUUID(), title: formState.title, dueDate: formState.dueDate, description: formState.description, });
   };
   return (
     <form onSubmit={addTask}>

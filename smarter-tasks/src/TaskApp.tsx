@@ -9,7 +9,7 @@ interface TaskAppState {
   tasks: TaskItem[];
 }
 
-const TaskApp = (props: TaskAppProp) => {
+const TaskApp = () => {
   const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
     tasks: [],
   });
@@ -18,8 +18,10 @@ const TaskApp = (props: TaskAppProp) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
 
-  const deleteTask = (idx: number) => {
-    setTaskAppState({ tasks: [...taskAppState.tasks.splice(idx, 1)] });
+  const deleteTask = (idToDel: string) => {
+    setTaskAppState({
+      tasks: taskAppState.tasks.filter((task) => task.id !== idToDel)
+    })
   };
 
   return (
@@ -38,7 +40,7 @@ const TaskApp = (props: TaskAppProp) => {
             </h1>
             <TaskForm addTask={addTask} />
             <TaskList tasks={taskAppState.tasks} 
-            deleteItemTask = {(idx) => deleteTask(idx)} />
+            handleDeleteTask = {deleteTask} />
           </div>
         </div>
       </div>
