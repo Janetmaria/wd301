@@ -11,7 +11,7 @@ interface Props {
 const TaskList = (props: Props) => {
     const list = <ul>{props.tasks.map((task) => (
     <li key={task.id}>
-    <Task {...task} onDelete={() => props.onDelete(task.id)}
+    <Task task={task} onDelete={() => props.onDelete(task.id)}
     />
     </li>
     ))}
