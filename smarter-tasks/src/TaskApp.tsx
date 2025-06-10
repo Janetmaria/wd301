@@ -18,16 +18,9 @@ const TaskApp = (props: TaskAppProp) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
 
-  useEffect(() => {
-  const id = setTimeout(() => {
-    console.log(`Saved ${taskAppState.tasks.length} items to backend...`);
-  }, 5000);
-
-  return () => {
-    console.log("clear or cancel any existing network call");
-    clearTimeout(id);
+  const deleteTask = (idx: number) => {
+    setTaskAppState({ tasks: [...taskAppState.tasks.splice(idx, 1)] });
   };
-  }, [taskAppState.tasks]);
 
   return (
     <div className="container py-10 max-w-4xl mx-auto">
@@ -44,7 +37,8 @@ const TaskApp = (props: TaskAppProp) => {
               Pending
             </h1>
             <TaskForm addTask={addTask} />
-            <TaskList tasks={taskAppState.tasks} />
+            <TaskList tasks={taskAppState.tasks} 
+            deleteItemTask = {(idx) => deleteTask(idx)} />
           </div>
         </div>
       </div>

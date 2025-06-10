@@ -6,13 +6,15 @@ interface TaskFormProps {
 }
 
 interface TaskFormState {
-    title: string;
-    dueDate: string;
-    description: string;
+  id: string;
+  title: string;
+  dueDate: string;
+  description: string;
 }
 
 const TaskForm = (props: TaskFormProps) => {
   const[formState, setFormState] = React.useState<TaskFormState>({
+    id: Number(new Date()).toString(),
     title: "",
     description: "",
     dueDate: "",
@@ -38,7 +40,7 @@ const TaskForm = (props: TaskFormProps) => {
       return;
     }
     props.addTask(formState);
-    setFormState({ title: "", dueDate: "", description: "" });
+    setFormState({ id: (Number(new Date())+1).toString(), title: "", dueDate: "", description: "" });
   };
   return (
     <form onSubmit={addTask}>
@@ -98,6 +100,7 @@ const TaskForm = (props: TaskFormProps) => {
             <div className="relative z-0 w-full mb-6 group">
               <button
                 type="submit"
+                id="addTaskButton"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Add item
