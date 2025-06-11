@@ -2,7 +2,7 @@ import Task from "./Task";
 import type { TaskItem } from "./types";
 
 interface Props {
-    task: TaskItem[];
+    tasks: TaskItem[];
     onDelete: (id: string) => void;
 }
 
@@ -10,7 +10,7 @@ interface Props {
 
 const TaskList = (props: Props) => {
   const list = <>
-  {props.task.map((task) => (
+  {props.tasks.map((task) => (
     <Task key={task.id} item={task} onDelete={() => props.onDelete(task.id)} />
   ))}
   </>
