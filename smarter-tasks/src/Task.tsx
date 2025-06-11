@@ -25,7 +25,7 @@ const Task = (props: TaskProps) => {
           className="deleteTaskButton cursor-pointer flex items-center justify-center h-4 w-4 rounded-full my-5 mr-5"
           onClick={onDelete}
         >
-          X
+          Delete
         </button>
       </div>
     </div>
