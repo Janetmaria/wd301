@@ -42,7 +42,7 @@ const TaskApp = () => {
               Pending
             </h1>
             <TaskForm addTask={addTask} />
-            <TaskList tasks={taskAppState.tasks} 
+            <TaskList task={taskAppState.tasks} 
             onDelete = {deleteTask} />
           </div>
         </div>
