@@ -35,6 +35,7 @@ const TaskForm = (props: TaskFormProps) => {
     event.preventDefault();
     console.log(`Submitted the form with`);
     if (formState.title.length === 0 || formState.dueDate.length === 0) {
+      console.warn("Title and Due Date are required");
       return;
     }
     props.addTask({

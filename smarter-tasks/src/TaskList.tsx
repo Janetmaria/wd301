@@ -9,13 +9,11 @@ interface Props {
 //interface State {}
 
 const TaskList = (props: Props) => {
-    const list = <ul>{props.task.map((task) => (
-    <li key={task.id}>
-    <Task item={task} onDelete={() => props.onDelete(task.id)}
-    />
-    </li>
-    ))}
-    </ul>
+  const list = <>
+  {props.task.map((task) => (
+    <Task key={task.id} item={task} onDelete={() => props.onDelete(task.id)} />
+  ))}
+  </>
     return <>{list}</>
 }
 
