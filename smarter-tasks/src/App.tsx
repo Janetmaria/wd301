@@ -11,8 +11,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import Layout from "./Layout";
 import NotFound from "./pages/Notfound";
 //import ReactPlayground from './ReactPlayground';
-import Form from './Form';
-import Header from "./components/Header";
+//import Form from './Form';
+//import Header from "./components/Header";
 
 const router = createBrowserRouter([
   {
@@ -55,13 +55,9 @@ const router = createBrowserRouter([
   }
 ]);
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <Header />
-      <Form />
-      <RouterProvider router={router} />;
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
