@@ -10,6 +10,9 @@ import Signin from "./pages/Signin";
 import ProtectedRoute from "./ProtectedRoute";
 import Layout from "./Layout";
 import NotFound from "./pages/Notfound";
+import ReactPlayground from './ReactPlayground';
+import Form from './Form';
+import Header from "./components/Header";
 
 const router = createBrowserRouter([
   {
@@ -52,8 +55,14 @@ const router = createBrowserRouter([
   }
 ]);
 
-const App = () => {
-  return <RouterProvider router={router} />;
-};
+function App() {
+  return (
+    <div>
+      <Header />
+      <Form />
+      <RouterProvider router={router} />;
+    </div>
+  );
+}
 
 export default App;
