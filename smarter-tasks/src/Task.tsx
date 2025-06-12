@@ -11,7 +11,6 @@ const Task = (props: TaskProps) => {
   const { item, onDelete } = props;
   return (
     <div className="TaskItem shadow-md border border-slate-100">
-      <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
         <div>
           <Link to={`/tasks/${item.id}`}>
             <h2 className="text-base font-bold my-1">{item.title}</h2>
@@ -27,7 +26,6 @@ const Task = (props: TaskProps) => {
         >
           Delete
         </button>
-      </div>
     </div>
   );
 };
