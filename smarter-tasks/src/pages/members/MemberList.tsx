@@ -9,6 +9,7 @@ const MemberList: React.FC = () => {
   
   useEffect(() => {
     fetchMembers(dispatchMembers)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className="grid gap-4 grid-cols-4 mt-5">
