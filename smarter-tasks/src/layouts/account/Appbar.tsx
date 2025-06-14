@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UserCircleIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from "react-router-dom"
 import Logo from "../../assets/images/logo.png"
@@ -37,7 +36,7 @@ const Appbar = () => {
   return (
     <>
       <Disclosure as="nav" className="border-b border-slate-200">
-        {({ open }) => (
+        {() => (
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
