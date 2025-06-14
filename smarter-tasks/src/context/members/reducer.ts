@@ -22,7 +22,7 @@ export type MembersActions =
   | { type: 'FETCH_MEMBERS_REQUEST' }
   | { type: 'FETCH_MEMBERS_SUCCESS'; payload: Member[] }
   | { type: 'FETCH_MEMBERS_FAILURE'; payload: string }
-  | { type: 'ADD_MEMBERS_SUCCESS'; payload: Member }
+  | { type: 'ADD_MEMBER_SUCCESS'; payload: Member }
   | { type: 'DELETE_MEMBER_SUCCESS'; payload: number };
 
 
@@ -46,7 +46,7 @@ export const reducer = (state: MembersSate, action: MembersActions): MembersSate
         isError: true, 
         errorMessage: action.payload
       };           
-    case 'ADD_MEMBERS_SUCCESS':
+    case 'ADD_MEMBER_SUCCESS':
       return {
         ...state, 
         members: [...state.members, action.payload] 
