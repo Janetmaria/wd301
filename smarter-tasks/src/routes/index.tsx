@@ -6,9 +6,13 @@ import Signup from "../pages/signup"
 import Projects from "../pages/projects";
 import Members from "../pages/members";
 import Logout from "../pages/logout";
+import NotFound from "../pages/Notfound";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate to="/account/projects" replace /> },
+  { path: "/", 
+    element: <Navigate to="/account/projects" replace />,
+    errorElement: <Navigate to="/notfound" replace /> 
+  },
   {
     path: "/signin", 
     element: <Signin />
@@ -20,6 +24,10 @@ const router = createBrowserRouter([
   { 
     path: "/logout", 
     element: <Logout /> 
+  },
+  {
+    path: "/notfound",
+    element: <NotFound />
   },
   // Protected Routes
   {
