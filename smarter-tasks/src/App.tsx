@@ -1,48 +1,22 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Notfound from "./pages/Notfound";
-import Signup from './pages/signup';
-import Signin from './pages/signin';
-import Dashboard from "./pages/dashboard";
-import ProtectedRoute from "./ProtectedRoute";
+import React, { useContext } from "react";
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import router from "./routes"
+import { ThemeContext } from "./context/theme";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Signup />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/signin",
-    element: <Signin />,
-  },
-  {
-    path: "/notfound",
-    element: <Notfound />,
-  },
-  {
-    path: "/dashboard",
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "*",
-    element: <Notfound />,
-  }
-]);
+// To do that, first I'll import the `ProjectsProvider` in the `App` component.
 
+import { ProjectsProvider } from "./context/projects/context";
+
+// Then I'll wrap the RouterProvider component with the <ProjectsProvider> component.
 const App = () => {
+  const { theme } = useContext(ThemeContext)
   return (
-    <RouterProvider router={router} />
+     <div className={`h-screen w-full mx-auto py-2 ${theme === "dark" ? "dark" : ""}`}>
+      <ProjectsProvider>
+        <RouterProvider router={router} />
+      </ProjectsProvider>
+    </div>
   );
 }
-
-export default App
+export default App;
