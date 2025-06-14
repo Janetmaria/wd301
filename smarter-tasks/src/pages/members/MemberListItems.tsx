@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMembersState, useMembersDispatch } from "../../context/members/context";
 import { deleteMember } from "../../context/members/actions";
 
