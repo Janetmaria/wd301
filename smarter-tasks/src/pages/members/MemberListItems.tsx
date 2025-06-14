@@ -4,9 +4,8 @@ import { useMembersState, useMembersDispatch } from "../../context/members/conte
 import { deleteMember } from "../../context/members/actions";
 
 export default function MemberListItems() {
-
-  // eslint-disable-next-line prefer-const
-  let state: any = useMembersState();
+  
+  const state: any = useMembersState();
   const dispatchMembers = useMembersDispatch();
 
   const { members, isLoading, isError, errorMessage } = state

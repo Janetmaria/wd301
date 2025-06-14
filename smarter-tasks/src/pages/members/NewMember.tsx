@@ -86,6 +86,7 @@ const NewMember = () => {
                       <input
                         type="text"
                         id="name"
+                        autoFocus
                         placeholder='Enter member name...'
                         {...register('name', { required: true })}
                         className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
@@ -96,6 +97,7 @@ const NewMember = () => {
                       <input
                         type="text"
                         id="email"
+                        autoFocus
                         placeholder='Enter member email...'
                         {...register('email', { required: true })}
                         className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
@@ -106,6 +108,7 @@ const NewMember = () => {
                       <input
                         type="text"
                         id="password"
+                        autoFocus
                         placeholder='Enter member password...'
                         {...register('password', { required: true })}
                         className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
