@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-//import React from "react";
 import { useMembersState, useMembersDispatch } from "../../context/members/context";
 import { deleteMember } from "../../context/members/actions";
 

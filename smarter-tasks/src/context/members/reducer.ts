@@ -52,6 +52,7 @@ export const reducer = (state: MembersSate, action: MembersActions): MembersSate
         members: [...state.members, action.payload] 
       }; 
     case 'DELETE_MEMBER_SUCCESS':
+      if(!action.payload) return state;
       return {
         ...state,
         members: state.members.filter(member => member.id !== action.payload)
