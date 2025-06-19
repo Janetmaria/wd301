@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 import { Fragment, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -61,7 +60,7 @@ const TaskDetails = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    //formState: { errors },
   } = useForm<TaskFormUpdatePayload>({
     defaultValues: {
       title: selectedTask.title,
