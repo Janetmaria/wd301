@@ -6,7 +6,7 @@ import Signup from "../pages/signup"
 import Projects from "../pages/projects";
 import Members from "../pages/members";
 import Logout from "../pages/logout";
-import NotFound from "../Notfound";
+import NotFound from "../pages/Notfound";
 import ProjectContainer from "../pages/projects/ProjectContainer";
 import ProjectDetails from "../pages/project_details";
 import NewTask from "../pages/tasks/NewTask";
