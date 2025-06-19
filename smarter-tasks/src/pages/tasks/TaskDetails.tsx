@@ -93,6 +93,7 @@ const TaskDetails = () => {
     if (newComment.trim()) {
       await addComment(commentDispatch, projectID!, taskID!, newComment);
       setNewComment("");
+      fetchComments(commentDispatch, projectID!, taskID!);
     }
   };
 
@@ -215,7 +216,7 @@ const TaskDetails = () => {
                       {[...commentState.comments].reverse().map((comment) => (
                         <li key={comment.id} className="border p-2 rounded-md">
                           <div className="text-sm text-gray-900 font-semibold">{comment.user_name}</div>
-                          <div className="text-sm text-gray-700">{comment.content}</div>
+                          <div className="text-sm text-gray-700">{comment.description}</div>
                           <div className="text-xs text-gray-400">{formatDate(comment.created_at)}</div>
                         </li>
                       ))}
