@@ -222,13 +222,15 @@ const TaskDetails = () => {
                     </ul>
 
                     <div className="mt-4">
-                      <textarea
+                      <input
+                        id="commentBox"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Add a comment"
                         className="w-full border rounded-md px-3 py-2 text-sm"
                       />
                       <button
+                        id="addCommentBtn"
                         onClick={handleAddComment}
                         className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                       >

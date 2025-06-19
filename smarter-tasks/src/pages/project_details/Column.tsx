@@ -2,6 +2,7 @@ import Task from "./Task";
 import { ColumnData, TaskDetails } from "../../context/task/types";
 import { Droppable } from "react-beautiful-dnd";
 import React, { forwardRef } from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 // A component to render the title, which will be included as <Title>This is a sample title</Title>
 const Title = (props: React.PropsWithChildren) => {
@@ -35,8 +36,18 @@ const Column: React.FC<Props> = (props) => {
       >
         {(provided) => (
           <TaskList ref={provided.innerRef} {...provided.droppableProps}>
-            {props.tasks.map((task) => (
-              <Task key={task.id} task={task} />
+            {props.tasks.map((task, index) => (
+              <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <Task task={task} />
+                  </div>
+                )}
+              </Draggable>
             ))}
             {provided.placeholder}
           </TaskList>

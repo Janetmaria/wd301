@@ -34,7 +34,7 @@ export const addComment = async (
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ content })
+      body: JSON.stringify({ description: content })
     });
     if (!response.ok) throw new Error('Failed to post comment');
     const data = await response.json();
