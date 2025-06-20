@@ -38,7 +38,7 @@ export const addComment = async (
     });
     if (!response.ok) throw new Error('Failed to post comment');
     const data = await response.json();
-    dispatch({ type: 'ADD_COMMENT_SUCCESS', payload: data.comment });
+    dispatch({ type: 'ADD_COMMENT_SUCCESS', payload: data });
   } catch (error) {
     console.error('Error adding comment:', error);
   }

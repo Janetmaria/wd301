@@ -78,9 +78,12 @@ const DragDropList = (props: {
     };
 
     reorderTasks(taskDispatch, newState);
-    const updatedTask = props.data.tasks[updatedItems[0]];
-    updatedTask.state = finishKey;
-    updateTask(taskDispatch, projectID ?? "", updatedTask);
+    const originalTask = props.data.tasks[updatedItems[0]];
+    const updatedTask = {
+      ...originalTask,
+      state: finishKey,
+    }
+    await updateTask(taskDispatch, projectID ?? "", updatedTask);
   };
 
   return (

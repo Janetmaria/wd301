@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useTasksDispatch, useTasksState } from "../../context/task/context";
-import { updateTask } from "../../context/task/actions";
+import { updateTask,deleteTask } from "../../context/task/actions";
 import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { useProjectsState } from "../../context/projects/context";
 import { TaskDetailsPayload } from "../../context/task/types";
@@ -11,6 +11,7 @@ import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import { useMembersState } from "../../context/members/context";
 import { useCommentDispatch, useCommentState } from "../../context/comment/context";
 import { fetchComments, addComment } from "../../context/comment/actions";
+import { Comment } from "../../context/comment/types";
 
 const formatDateForPicker = (isoDate: string) => {
   const dateObj = new Date(isoDate);
@@ -50,12 +51,18 @@ const TaskDetails = () => {
     selectedTask.assignedUserName ?? ""
   );
   const [newComment, setNewComment] = useState("");
+  const [localComments, setLocalComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     if (projectID && taskID) {
       fetchComments(commentDispatch, projectID, taskID);
     }
   }, [ commentDispatch, projectID, taskID]);
+
+  useEffect(() => {
+    console.log("Comments fetched:", commentState.comments);
+    setLocalComments(commentState.comments);
+  }, [commentState.comments]);
 
   const {
     register,
@@ -93,7 +100,8 @@ const TaskDetails = () => {
     if (newComment.trim()) {
       await addComment(commentDispatch, projectID!, taskID!, newComment);
       setNewComment("");
-      fetchComments(commentDispatch, projectID!, taskID!);
+      await fetchComments(commentDispatch, projectID!, taskID!);
+      console.log("Comment added successfully");
     }
   };
 
@@ -154,8 +162,7 @@ const TaskDetails = () => {
                       id="dueDate"
                       {...register("dueDate", { required: true })}
                       className="w-full border rounded-md py-2 px-3 my-4 text-gray-700"
-                    />
-
+                    />                  
                     <h3><strong>Assignee</strong></h3>
                     <Listbox value={selectedPerson} onChange={setSelectedPerson}>
                       <Listbox.Button className="w-full border rounded-md py-2 px-3 my-2 text-gray-700 text-base text-left">
@@ -213,7 +220,7 @@ const TaskDetails = () => {
                   <div className="mt-6">
                     <h4 className="font-semibold mb-2">Comments</h4>
                     <ul className="space-y-2 max-h-48 overflow-y-auto">
-                      {[...commentState.comments].reverse().map((comment) => (
+                      {[...localComments].reverse().map((comment) => (
                         <li key={comment.id} className="border p-2 rounded-md">
                           <div className="text-sm text-gray-900 font-semibold">{comment.user_name}</div>
                           <div className="text-sm text-gray-700">{comment.description}</div>
@@ -221,7 +228,6 @@ const TaskDetails = () => {
                         </li>
                       ))}
                     </ul>
-
                     <div className="mt-4">
                       <input
                         id="commentBox"
@@ -240,6 +246,15 @@ const TaskDetails = () => {
                     </div>
                   </div>
                 </div>
+                <button
+                  id="deleteTaskBtn"
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Stop bubbling to Link
+                    e.preventDefault();  // Stop default link behavior
+                    deleteTask(taskDispatch, projectID ?? "", selectedTask);
+                  }}
+                >Delete</button>
               </Dialog.Panel>
             </Transition.Child>
           </div>
