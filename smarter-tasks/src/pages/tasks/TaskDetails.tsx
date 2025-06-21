@@ -101,7 +101,8 @@ const TaskDetails = () => {
       await addComment(commentDispatch, projectID!, taskID!, newComment);
       setNewComment("");
       await fetchComments(commentDispatch, projectID!, taskID!);
-      console.log("Comment added successfully");
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for comments to update
+      console.log("Comments after adding:", commentState.comments);
     }
   };
 
@@ -249,10 +250,11 @@ const TaskDetails = () => {
                 <button
                   id="deleteTaskBtn"
                   className="absolute top-2 right-2 cursor-pointer"
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.stopPropagation(); // Stop bubbling to Link
                     e.preventDefault();  // Stop default link behavior
-                    deleteTask(taskDispatch, projectID ?? "", selectedTask);
+                    await deleteTask(taskDispatch, projectID ?? "", selectedTask);
+                    navigate(`/projects/${projectID}`);
                   }}
                 >Delete</button>
               </Dialog.Panel>

@@ -27,6 +27,7 @@ export const addComment = async (
   content: string
 ) => {
   const token = localStorage.getItem("authToken") ?? "";
+  const userID = parseInt(localStorage.getItem("userID") ?? "0");
   try {
     const response = await fetch(`${API_ENDPOINT}/projects/${projectID}/tasks/${taskID}/comments`, {
       method: 'POST',
@@ -34,7 +35,7 @@ export const addComment = async (
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ description: content })
+      body: JSON.stringify({ description: content, owner: userID })
     });
     if (!response.ok) throw new Error('Failed to post comment');
     const data = await response.json();
