@@ -100,9 +100,6 @@ const TaskDetails = () => {
     if (newComment.trim()) {
       await addComment(commentDispatch, projectID!, taskID!, newComment);
       setNewComment("");
-      await fetchComments(commentDispatch, projectID!, taskID!);
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for comments to update
-      console.log("Comments after adding:", commentState.comments);
     }
   };
 
@@ -221,7 +218,9 @@ const TaskDetails = () => {
                   <div className="mt-6">
                     <h4 className="font-semibold mb-2">Comments</h4>
                     <ul className="space-y-2 max-h-48 overflow-y-auto">
-                      {[...localComments].reverse().map((comment) => (
+                      {[...localComments]
+                        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+                        .map((comment) => (
                         <li key={comment.id} className="border p-2 rounded-md">
                           <div className="text-sm text-gray-900 font-semibold">{comment.user_name}</div>
                           <div className="text-sm text-gray-700">{comment.description}</div>
@@ -254,7 +253,7 @@ const TaskDetails = () => {
                     e.stopPropagation(); // Stop bubbling to Link
                     e.preventDefault();  // Stop default link behavior
                     await deleteTask(taskDispatch, projectID ?? "", selectedTask);
-                    navigate(`/projects/${projectID}`);
+                    navigate(`/account/projects/${projectID}`);
                   }}
                 >Delete</button>
               </Dialog.Panel>

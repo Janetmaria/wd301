@@ -1,6 +1,6 @@
 import { TaskDetails } from "../../context/task/types";
 import "./TaskCard.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTasksDispatch } from "../../context/task/context";
 import { deleteTask } from "../../context/task/actions";
 import React from "react";
@@ -11,12 +11,20 @@ const Task = React.forwardRef<
 >((props, ref) => {
   const { task } = props;
   const { projectID } = useParams();
+  const navigate = useNavigate();
   const taskDispatch = useTasksDispatch();
+
+  const handleClick = () => {
+    navigate(`/account/projects/${projectID}/tasks/${task.id}`);
+  };
 
   return (
     <div ref={ref} className="m-2 flex">
       <div className="TaskItem w-full shadow-md border border-slate-100 bg-white relative">
-        <Link to={`/account/projects/${projectID}/tasks/${task.id}`} className="block p-4">
+        <div 
+          onClick={handleClick}
+          className="block p-4 cursor-pointer"
+        >
           <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
             <div>
               <h2 className="text-base font-bold my-1">{task.title}</h2>
@@ -31,15 +39,15 @@ const Task = React.forwardRef<
               </p>
             </div>
           </div>
-        </Link>
+        </div>
 
-        {/* Delete button outside the Link */}
+        {/* Delete button */}
         <button
           id="deleteTaskBtn"
-          className="absolute top-2 right-2 cursor-pointer"
+          className="absolute top-2 right-2 cursor-pointer z-10"
           onClick={(e) => {
-            e.stopPropagation(); // Stop bubbling to Link
-            e.preventDefault();  // Stop default link behavior
+            e.stopPropagation();
+            e.preventDefault();
             deleteTask(taskDispatch, projectID ?? "", task);
           }}
         >
