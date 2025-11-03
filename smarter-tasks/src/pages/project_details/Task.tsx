@@ -4,10 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTasksDispatch } from "../../context/task/context";
 import { deleteTask } from "../../context/task/actions";
 import React from "react";
+import type { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 
 type TaskProps = {
   task: TaskDetails;
-  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
 };
 
 const Task = React.forwardRef<
@@ -32,7 +33,7 @@ const Task = React.forwardRef<
         >
           <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
             <div>
-              <div className="mb-2" {...dragHandleProps} aria-label="drag-handle">
+              <div className="mb-2" {...(dragHandleProps ?? {})} aria-label="drag-handle">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-slate-400">
                   <path fillRule="evenodd" d="M7 4a1 1 0 100-2 1 1 0 000 2zm6-1a1 1 0 110 2 1 1 0 010-2zM7 11a1 1 0 100-2 1 1 0 000 2zm6-1a1 1 0 110 2 1 1 0 010-2zM7 18a1 1 0 100-2 1 1 0 000 2zm6-1a1 1 0 110 2 1 1 0 010-2z" clipRule="evenodd" />
                 </svg>
