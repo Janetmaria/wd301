@@ -42,9 +42,8 @@ const Column: React.FC<Props> = (props) => {
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    {...provided.dragHandleProps}
                   >
-                    <Task task={task} />
+                    <Task task={task} dragHandleProps={provided.dragHandleProps} />
                   </div>
                 )}
               </Draggable>

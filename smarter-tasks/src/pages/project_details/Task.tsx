@@ -5,11 +5,16 @@ import { useTasksDispatch } from "../../context/task/context";
 import { deleteTask } from "../../context/task/actions";
 import React from "react";
 
+type TaskProps = {
+  task: TaskDetails;
+  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
+};
+
 const Task = React.forwardRef<
   HTMLDivElement,
-  React.PropsWithChildren<{ task: TaskDetails }>
+  React.PropsWithChildren<TaskProps>
 >((props, ref) => {
-  const { task } = props;
+  const { task, dragHandleProps } = props;
   const { projectID } = useParams();
   const navigate = useNavigate();
   const taskDispatch = useTasksDispatch();
@@ -27,6 +32,11 @@ const Task = React.forwardRef<
         >
           <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
             <div>
+              <div className="mb-2" {...dragHandleProps} aria-label="drag-handle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-slate-400">
+                  <path fillRule="evenodd" d="M7 4a1 1 0 100-2 1 1 0 000 2zm6-1a1 1 0 110 2 1 1 0 010-2zM7 11a1 1 0 100-2 1 1 0 000 2zm6-1a1 1 0 110 2 1 1 0 010-2zM7 18a1 1 0 100-2 1 1 0 000 2zm6-1a1 1 0 110 2 1 1 0 010-2z" clipRule="evenodd" />
+                </svg>
+              </div>
               <h2 className="text-base font-bold my-1">{task.title}</h2>
               <p className="text-sm text-slate-500">
                 {new Date(task.dueDate).toDateString()}
