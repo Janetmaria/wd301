@@ -52,6 +52,7 @@ const TaskDetails = () => {
   );
   const [newComment, setNewComment] = useState("");
   const [localComments, setLocalComments] = useState<Comment[]>([]);
+  const [commentError, setCommentError] = useState<string | null>(null);
 
   useEffect(() => {
     if (projectID && taskID) {
@@ -97,9 +98,23 @@ const TaskDetails = () => {
   };
 
   const handleAddComment = async () => {
-    if (newComment.trim()) {
+    if (!newComment.trim()) return;
+    
+    setCommentError(null);
+    try {
       await addComment(commentDispatch, projectID!, taskID!, newComment);
       setNewComment("");
+      // Refetch comments to ensure we have the latest data from the server
+      await fetchComments(commentDispatch, projectID!, taskID!);
+    } catch (error) {
+      setCommentError("Failed to post comment. Please try again.");
+      console.error("Error posting comment:", error);
+    }
+  };
+
+  const handleCommentKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleAddComment();
     }
   };
 
@@ -231,13 +246,19 @@ const TaskDetails = () => {
                     <div className="mt-4">
                       <input
                         id="commentBox"
+                        type="text"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
+                        onKeyPress={handleCommentKeyPress}
                         placeholder="Add a comment"
                         className="w-full border rounded-md px-3 py-2 text-sm"
                       />
+                      {commentError && (
+                        <div className="text-red-500 text-sm mt-1">{commentError}</div>
+                      )}
                       <button
                         id="addCommentBtn"
+                        type="button"
                         onClick={handleAddComment}
                         className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                       >
